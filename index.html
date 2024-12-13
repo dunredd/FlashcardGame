@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+
+
+</style>
+</head>
+<body>
+<h1 id="question">Question</h1>
+<div>
+    <button id="response1">response 1</button>
+    <button id="response2">response 2</button>
+</div>
+<p id="response">response</p>
+
+<script>
+const response1El = document.querySelector('#response1');
+const response2El = document.querySelector('#response2');
+const questionEl = document.querySelector('#question');
+const responseEl = document.querySelector('#response');
+
+const card1 = {
+  question: "Quelle est la taille de la tour Eiffel ?",
+  response1: "324m",
+  response2: "2m",
+  solution: "324m",
+};
+
+questionEl.textContent = card1.question;
+response1El.textContent = card1.response1;
+response2El.textContent = card1.response2;
+
+document.querySelector('#response1').addEventListener("click", ()=> {
+    responseEl.textContent = "bon";
+})
+
+document.querySelector('#response2').addEventListener("click", ()=> {
+    responseEl.textContent = "faux";
+})
+
+
+
+
+
+</script>
+</body>
+</html>
