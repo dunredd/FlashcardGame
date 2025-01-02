@@ -5,42 +5,142 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 <style>
-
+.grid_container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.hidden{
+    display: none;
+}
+button{
+    padding: .5rem;
+    border: 1px black solid;
+    border-radius: .2rem;
+}
+.card_container{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.card{
+    width: 20rem;
+    height: 30rem;
+    border: 1px solid black;
+    border-radius: 2rem;
+}
 
 </style>
 </head>
 <body>
-<h1 id="question">Question</h1>
-<div>
-    <button id="response1">response 1</button>
-    <button id="response2">response 2</button>
-</div>
-<p id="response">response</p>
+<main class="grid_container">
+    <section class="main_container">
+        <button id="start">Start</button>
+
+    </section>
+
+    <section class="card_container">
+        <article class="card">
+            <h1 id="question">Question</h1>
+            <div>
+                <button id="possibility1">Réponse 1</button>
+                <button id="possibility2">Réponse 2</button>
+                <button id="possibility3">Réponse 3</button>
+
+                <label for="number">Choisir une valeur</label>
+                <input name="number" type="number">
+
+                <label for="numberrange">Choisir une valeur</label>
+                <input type="range" name="numberrange" 
+                value="0"
+                min="0"
+                max="12"
+                step="1">
+                <p id="numberrangeindicator">0</p>
+            </div>
+            <p id="response">Réponse</p>
+        </article>
+        
+    </section>
+
+    <section class="score_container">
+        <h1>Score par carte</h1>
+        <h2>Score carte 1:</h2>
+        <p id="scorecard1" >0</p>
+
+
+
+    </section>
+</main>
 
 <script>
-const response1El = document.querySelector('#response1');
-const response2El = document.querySelector('#response2');
-const questionEl = document.querySelector('#question');
-const responseEl = document.querySelector('#response');
+var startEl = document.querySelector("#start");
+
+const possibility1El = document.querySelector("#possibility1");
+const possibility2El = document.querySelector("#possibility2");
+const possibility3El = document.querySelector("#possibility3");
+const numberEl = document.querySelector('input[name="number"]');
+const numberrangeEl = document.querySelector('input[name="numberrange"]');
+const numberrangeindicatorEl = document.querySelector("#numberrangeindicator");
+const questionEl = document.querySelector("#question");
+const responseEl = document.querySelector("#response");
+
+const scorecard1El = document.querySelector("#scorecard1");
+
 
 const card1 = {
   question: "Quelle est la taille de la tour Eiffel ?",
-  response1: "324m",
-  response2: "2m",
+  possibility1: "324m",
+  possibility2: "2m",
+  possibility3: "34m",
   solution: "324m",
+  used: false,
+  score: 0,
 };
 
-questionEl.textContent = card1.question;
-response1El.textContent = card1.response1;
-response2El.textContent = card1.response2;
-
-document.querySelector('#response1').addEventListener("click", ()=> {
-    responseEl.textContent = "bon";
+numberrangeEl.addEventListener("input", ()=>{
+    let Range = numberrangeEl.value;
+    numberrangeindicatorEl.textContent = Range; 
 })
 
-document.querySelector('#response2').addEventListener("click", ()=> {
-    responseEl.textContent = "faux";
+startEl.addEventListener("click", ()=> {
+
 })
+
+
+
+function ShowCard1 (){
+    questionEl.textContent = card1.question;
+    possibility1El.textContent = card1.possibility1;
+    possibility2El.textContent = card1.possibility2;
+    possibility3El.textContent = card1.possibility3;
+    numberEl.classList.add('hidden');
+    numberrangeEl.classList.add('hidden');
+
+    possibility1El.addEventListener("click", ()=> {
+        possibility1El.style.background = "green";
+        responseEl.textContent = "bonne réponse";
+        card1.score = card1.score + 1;
+        scorecard1El.textContent = card1.score;
+
+    })
+    possibility2El.addEventListener("click", ()=> {
+        responseEl.textContent = "mauvaise réponse";
+        card1.score = card1.score - 1;
+        scorecard1El.textContent = card1.score;
+        possibility2El.style.background = "red";
+    })
+    possibility3El.addEventListener("click", ()=> {
+        responseEl.textContent = "mauvaise réponse";
+        card1.score = card1.score - 1;
+        scorecard1El.textContent = card1.score;
+        possibility3El.style.background = "red";
+    })
+}
+
+function randomCard(min, max) {
+  return Math.round(Math.random() * (max - min) + min);
+}
+
 
 
 
