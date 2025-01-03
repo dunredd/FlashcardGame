@@ -5,9 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 <style>
+
+html{
+    background-color: rgb(223, 223, 223);
+}
 .grid_container{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+
 }
 .hidden{
     display: none;
@@ -16,6 +21,8 @@ button{
     padding: .5rem;
     border: 1px black solid;
     border-radius: .2rem;
+    color: white;
+    background-color: black;
 }
 .card_container{
     display: flex;
@@ -27,6 +34,7 @@ button{
     height: 30rem;
     border: 1px solid black;
     border-radius: 2rem;
+    background-color: white;
 }
 
 </style>
@@ -34,7 +42,7 @@ button{
 <body>
 <main class="grid_container">
     <section class="main_container">
-        <button id="start">Start</button>
+        <button id="start">Jouer</button>
 
     </section>
 
@@ -46,10 +54,8 @@ button{
                 <button id="possibility2">Réponse 2</button>
                 <button id="possibility3">Réponse 3</button>
 
-                <label for="number">Choisir une valeur</label>
                 <input name="number" type="number">
 
-                <label for="numberrange">Choisir une valeur</label>
                 <input type="range" name="numberrange" 
                 value="0"
                 min="0"
@@ -66,7 +72,8 @@ button{
         <h1>Score par carte</h1>
         <h2>Score carte 1:</h2>
         <p id="scorecard1" >0</p>
-
+        <h2>Score carte 2:</h2>
+        <p id="scorecard2" >0</p>
 
 
     </section>
@@ -85,6 +92,7 @@ const questionEl = document.querySelector("#question");
 const responseEl = document.querySelector("#response");
 
 const scorecard1El = document.querySelector("#scorecard1");
+const scorecard2El = document.querySelector("#scorecard2");
 
 
 const card1 = {
@@ -96,6 +104,27 @@ const card1 = {
   used: false,
   score: 0,
 };
+const card2 = {
+  question: "Paris est-elle la capitale de la France?",
+  possibility1: "Vrai",
+  possibility2: "Faux",
+  solution: "Vrai",
+  used: false,
+  score: 0,
+};
+
+Initialisation();
+
+function Initialisation (){
+    questionEl.classList.add('hidden');
+    possibility1El.classList.add('hidden');
+    possibility2El.classList.add('hidden');
+    possibility3El.classList.add('hidden');
+    numberEl.classList.add('hidden');
+    numberrangeEl.classList.add('hidden');
+    numberrangeindicatorEl.classList.add('hidden');
+    responseEl.classList.add('hidden');
+}
 
 numberrangeEl.addEventListener("input", ()=>{
     let Range = numberrangeEl.value;
@@ -103,38 +132,95 @@ numberrangeEl.addEventListener("input", ()=>{
 })
 
 startEl.addEventListener("click", ()=> {
-
+    Initialisation();
+    StartRandomCard();
 })
 
+function StartRandomCard(){
+    ShowCard1();
+}
 
 
 function ShowCard1 (){
+    questionEl.classList.remove('hidden');
     questionEl.textContent = card1.question;
+
+    possibility1El.classList.remove('hidden');
+    possibility2El.classList.remove('hidden');
+    possibility3El.classList.remove('hidden');    
     possibility1El.textContent = card1.possibility1;
     possibility2El.textContent = card1.possibility2;
     possibility3El.textContent = card1.possibility3;
+
     numberEl.classList.add('hidden');
     numberrangeEl.classList.add('hidden');
+    numberrangeindicatorEl.classList.add('hidden');
+
 
     possibility1El.addEventListener("click", ()=> {
+        console.log("prgm1 btn1");
         possibility1El.style.background = "green";
+        responseEl.classList.remove('hidden');
         responseEl.textContent = "bonne réponse";
         card1.score = card1.score + 1;
         scorecard1El.textContent = card1.score;
-
+        return;
     })
     possibility2El.addEventListener("click", ()=> {
+        console.log("prgm1 btn2");
+        responseEl.classList.remove('hidden');
         responseEl.textContent = "mauvaise réponse";
         card1.score = card1.score - 1;
         scorecard1El.textContent = card1.score;
         possibility2El.style.background = "red";
+        return;
     })
     possibility3El.addEventListener("click", ()=> {
+        console.log("prgm1 btn3");
+        responseEl.classList.remove('hidden');
         responseEl.textContent = "mauvaise réponse";
         card1.score = card1.score - 1;
         scorecard1El.textContent = card1.score;
         possibility3El.style.background = "red";
+        return;
     })
+    console.log("fin de programme 1")
+}
+function ShowCard2 (){
+    questionEl.classList.remove('hidden');
+    questionEl.textContent = card2.question;
+
+    possibility1El.classList.remove('hidden');
+    possibility2El.classList.remove('hidden');
+    possibility1El.textContent = card2.possibility1;
+    possibility2El.textContent = card2.possibility2;
+
+    possibility3El.classList.add('hidden');
+    numberEl.classList.add('hidden');
+    numberrangeEl.classList.add('hidden');
+    numberrangeindicatorEl.classList.add('hidden');
+
+    possibility1El.addEventListener("click", ()=> {
+        console.log("prgm2 btn1");
+        possibility1El.style.background = "green";
+        responseEl.classList.remove('hidden');
+        responseEl.textContent = "bonne réponse";
+        card2.score = card2.score + 1;
+        scorecard2El.textContent = card2.score;
+        setTimeout(StartRandomCard(), 3000);
+        return;
+    })
+    possibility2El.addEventListener("click", ()=> {
+        console.log("prgm2 btn2");
+        responseEl.classList.remove('hidden');
+        responseEl.textContent = "mauvaise réponse";
+        card2.score = card2.score - 1;
+        scorecard2El.textContent = card2.score;
+        possibility2El.style.background = "red";
+        return;
+    })
+    console.log("fin de programme 2")
+
 }
 
 function randomCard(min, max) {
