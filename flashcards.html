@@ -11,6 +11,10 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: sans-serif;
+}
+.hidden{
+    display: none;
 }
 .playbuttun{
     padding: .5rem;
@@ -18,42 +22,207 @@
     color: white;
     border-radius: .5rem;
 }
+
+
+.init{
+    padding: 1rem;
+}
+.headerinit{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+.containerchangecard{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;  
+}
+.changecard{
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    padding: .5rem;
+}
+
+
+.play{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.card_container{
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    border: 1px black solid;
+    border-radius: 2rem;
+    padding: 1rem;
+}
+aside, main{
+    padding: 1rem;
+}
+
+
+
+
 </style>
 </head>
 <body>
-<aside>
-    <h1>Lancer une partie</h1>
-    <p>Partie aléatoire</p>
-    <button class="playbuttun">Jouer</button>
-    <p>Partie avec seulement les difficiles</p>
-    <button class="playbuttun">Jouer</button>
 
-    <h1>Score Cartes</h1>
-    <section>
-        <p>Score carte 1</p>
-        <p>0</p>
+<article id="init" class="init">
+    <section class="headerinit">
+        <h1>Modifications des Cartes</h1>
+        <button id="validationinitInput" class="playbuttun">Valider</button>
     </section>
     
-    <h1>Modification de Cartes</h1>
-    <button>Carte 1</button>
-    <section>
-        <label for="question">Modifier la question</label>
-        <input type="text" name="questionInput">
+    <section class="containerchangecard">
+        <section id="changecard1" class="changecard">
+
+            <label for="question">Modifier la question</label>
+            <input type="text" name="questionInput">
+    
+            <button id="answerbuttun2">Reponse en 2 boutons</button>
+            <button id="answerbuttun3">Reponse en 3 boutons</button>
+            <button id="answerbuttun4">Reponse en 4 boutons</button>
+            <button id="answerrange">Reponse avec une valeur numérique</button>
+            <input type="number" name="answernumber">
+            <button id="answerrange">Range</button>
+            <button id="answernumber">Nombre</button>
+
+
+            <label for="changebuttun1">Modifier le bouton 1</label>
+            <input type="text" name="changebuttun1">
+    
+            <label for="changebuttun2">Modifier le bouton 2</label>
+            <input type="text" name="changebuttun2">
+    
+            <label for="changebuttun3">Modifier le bouton 3</label>
+            <input type="text" name="changebuttun3">
+    
+            <label for="changebuttun4">Modifier le bouton 4</label>
+            <input type="text" name="changebuttun4">
+        </section>
+
     </section>
     
-</aside>
-<main>
-    <h2>Question</h2>
-    <button>Bouton 1</button>
-    <button>Bouton 2</button>
-    <button>Bouton 3</button>
-    <button>Bouton 4</button>
-    <label for="range"></label>
-    <input type="range" name="rangeInput">
-    <input type="number" name="numberInput">
-</main>
+
+</article>
+
+<article id="play" class="play">
+    <aside id="aside1">
+        <h1>Lancer une partie</h1>
+        <p>Partie aléatoire</p>
+        <button class="playbuttun" id="startInput">Jouer</button>
+        <p>Partie avec seulement les difficiles</p>
+        <button class="playbuttun"id="start2Input">Jouer</button>
+        
+    </aside>
+    <main id="main">
+        <section class="card_container">
+            <h2>Question</h2>
+            <button>Bouton 1</button>
+            <button>Bouton 2</button>
+            <button>Bouton 3</button>
+            <button>Bouton 4</button>
+            <label for="range" id="rangeindicatorInput">0</label>
+            <input type="range" name="rangeInput"
+            value="0"
+            min="0"
+            max="100"
+            step="1">
+            <input type="number" name="numberInput">
+        </section>
+        
+    </main>
+    <aside id="aside2">
+        <h1>Score par carte</h1>
+    
+        <p>Score carte 1:</p>
+        <p id="scorecard1" >0</p>
+        
+        <p>Score carte 2:</p>
+        <p id="scorecard2" >0</p>
+    
+        <p>Score carte 3:</p>
+        <p id="scorecard3" >0</p>
+    
+        <p>Score carte 4:</p>
+        <p id="scorecard4" >0</p>
+        
+        <p>Score carte 5:</p>
+        <p id="scorecard5" >0</p>
+    
+        <p>Score carte 6:</p>
+        <p id="scorecard6" >0</p>
+    
+        <p>Score carte 7:</p>
+        <p id="scorecard7" >0</p>
+        
+        <p>Score carte 9:</p>
+        <p id="scorecard8" >0</p>
+    
+        <p>Score carte 9:</p>
+        <p id="scorecard9" >0</p>
+    
+        <p>Score carte 10:</p>
+        <p id="scorecard10" >0</p>
+    </aside>
+</article>
+
 <script>
+const card1 = {
+    score:0,
+};
+const initEl = document.querySelector("#init");
+const playEl = document.querySelector("#play");
 
+
+const validationinitEl = document.querySelector("#validationinitInput");
+
+
+const startEl = document.querySelector("#startInput");
+const start2El = document.querySelector("#start2Input");
+
+const rangeindicatorEl = document.querySelector("#rangeindicatorInput");
+const rangeEl = document.querySelector('input[name="rangeInput"]');
+
+const scorecard1El = document.querySelector("#scorecard1");
+const scorecard2El = document.querySelector("#scorecard2");
+const scorecard3El = document.querySelector("#scorecard3");
+const scorecard4El = document.querySelector("#scorecard4");
+const scorecard5El = document.querySelector("#scorecard5");
+const scorecard6El = document.querySelector("#scorecard6");
+const scorecard7El = document.querySelector("#scorecard7");
+const scorecard8El = document.querySelector("#scorecard8");
+const scorecard9El = document.querySelector("#scorecard9");
+const scorecard10El = document.querySelector("#scorecard10");
+
+
+Entercard();
+
+validationinitEl.addEventListener("click", ()=>{
+    console.log("valider");
+    initEl.classList.add('hidden');
+    playEl.classList.remove('hidden');
+})
+
+
+
+function randomCard(min, max) {
+  return Math.round(Math.random() * (max - min) + min);
+}
+
+function Entercard(){
+    initEl.classList.remove('hidden');
+    playEl.classList.add('hidden');
+}
+
+function Initialisation(){
+    console.log("initialisation");
+}
+
+rangeEl.addEventListener("input", ()=>{
+    let Range = rangeEl.value;
+    rangeindicatorEl.textContent = Range; 
+})
 </script>
 </body>
 </html>

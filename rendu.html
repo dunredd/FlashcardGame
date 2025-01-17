@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+
+    buttun{
+        border: 1px black solid;
+    }
+    #start{
+        background-color: black;
+        color: white;
+        border-radius: .3rem;
+    }
+    .flashcard{
+        border: 1px black solid;
+        padding: 1rem;
+        border-radius: 1rem;
+    }
+
+</style>
+</head>
+
+
+<body>
+
+<button id="start">Start</button>
+<button id="addTrueFalse">Add V/F</button>
+<button id="addMultiple">Add Multiples</button>
+<button id="addNumber">Add Nombre</button>
+<button id="addRange">Add Range</button>
+<ul id="list"></ul>
+
+
+
+<script>
+
+const startEl = document.querySelector("#start");
+
+const list = document.querySelector("#list");
+const addTrueFalseBtn = document.querySelector("button#addTrueFalse");
+const addMultipleBtn = document.querySelector("button#addMultiple");
+const addNumberBtn = document.querySelector("button#addNumber");
+const addRangeBtn = document.querySelector("button#addRange");
+
+function initialisation(){
+    console.log("init");
+}
+
+startEl.addEventListener("click", ()=> {
+    initialisation();
+    startRandomCard();
+})
+
+function startRandomCard(){
+    initialisation();
+
+    if (card1.used == false){
+        showCard1();
+        console.log("showCard1");
+    }
+    
+}
+
+
+
+
+
+
+
+addTrueFalseBtn.addEventListener("click", () => {
+    list.insertAdjacentHTML(
+        "beforeend",
+        `
+        <li id="new-flashcard" class="flashcard">
+            <article>
+                <h2 contenteditable>Question</h2>
+                <buttun contenteditable>Vrai</buttun>
+                <buttun contenteditable>Faux</buttun>
+                <button>❌</button>
+            </article>
+        </li>
+        `
+        );
+
+    const newFlashcard = document.querySelector("#new-flashcard");
+
+    const button = newFlashcard.querySelector("button");
+
+    button.addEventListener("click", () => {
+        newFlashcard.remove();
+    });
+
+    newFlashcard.id = "";
+});
+
+addMultipleBtn.addEventListener("click", () => {
+    list.insertAdjacentHTML(
+        "beforeend",
+        `
+        <li id="new-flashcard" class="flashcard">
+            <article>
+                <h2 contenteditable>Question</h2>
+                <buttun contenteditable>Rep 1</buttun>
+                <buttun contenteditable>Rep 2</buttun>
+                <buttun contenteditable>Rep 3</buttun>
+                <buttun contenteditable>Rep 4</buttun>
+                <button>❌</button>
+            </article>
+        </li>
+        `
+        );
+
+    const newFlashcard = document.querySelector("#new-flashcard");
+
+    const button = newFlashcard.querySelector("button");
+
+    button.addEventListener("click", () => {
+        newFlashcard.remove();
+    });
+
+    newFlashcard.id = "";
+});
+addNumberBtn.addEventListener("click", () => {
+    list.insertAdjacentHTML(
+        "beforeend",
+        `
+        <li id="new-flashcard" class="flashcard">
+            <article>
+                <h2 contenteditable>Question</h2>
+                <input type="number" name="number" contenteditable>
+                <button>❌</button>
+            </article>
+        </li>
+        `
+        );
+
+    const newFlashcard = document.querySelector("#new-flashcard");
+
+    const button = newFlashcard.querySelector("button");
+
+    button.addEventListener("click", () => {
+        newFlashcard.remove();
+    });
+
+    newFlashcard.id = "";
+});
+
+addRangeBtn.addEventListener("click", () => {
+    list.insertAdjacentHTML(
+        "beforeend",
+        `
+        <li id="new-flashcard" class="flashcard">
+            <article>
+                <h2 contenteditable>Question</h2>
+                <input type="range" name="range" contenteditable
+                value="0"
+                min="0"
+                max="100"
+                step="1">
+                <p id="rangeNumber" >0</p>
+                <button>❌</button>
+            </article>
+        </li>
+        `
+        );
+
+    const newFlashcard = document.querySelector("#new-flashcard");
+
+    const button = newFlashcard.querySelector("button");
+
+    button.addEventListener("click", () => {
+        newFlashcard.remove();
+    });
+
+    const rangeNumber = newFlashcard.querySelector("#rangeNumber");
+    const range = newFlashcard.querySelector('input[name="range"]');
+
+    range.addEventListener("input", ()=>{
+    let Range = range.value;
+    rangeNumber.textContent = Range; 
+})
+    newFlashcard.id = "";
+});
+
+
+
+
+function randomCard(min, max) {
+  return Math.round(Math.random() * (max - min) + min);
+}
+    
+</script>
+</body>
+</html>
+Je ne sais pas comment selectionner une nouvelle flascard alors qu'on lui enleve son id:
+    Faut il créer une variable qui leur donne un numéro à chacune différent?
